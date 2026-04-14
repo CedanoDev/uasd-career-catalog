@@ -1,6 +1,7 @@
 package com.uasd;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void mostrarVentana(JFrame ventana) {
@@ -10,7 +11,11 @@ public class Main {
         ventana.setVisible(true);
     }
     public static void main(String[] args) {
-        System.out.println("Hola Mundo");
-        mostrarVentana(new frameCatalogoUASD());
+        System.out.println("Hola desde Main");
+        //mostrarVentana(new frameCatalogoUASD());
+        SwingUtilities.invokeLater(() -> {
+    new frameCatalogoUASD().setVisible(true);
+});
+
     }
 }

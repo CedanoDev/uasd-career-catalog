@@ -4,19 +4,30 @@
  */
 package com.uasd;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author jomil
  */
 public class frameCatalogoUASD extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frameCatalogoUASD.class.getName());
+    //private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frameCatalogoUASD.class.getName());
 
     /**
      * Creates new form frameCatalogoUASD
      */
+    Controlador c = new Controlador();
     public frameCatalogoUASD() {
         initComponents();
+        System.out.println("Hola desde frameCatalogoUASD");
+        try {
+            c.mostrarFacultades(this);
+        } catch (SQLException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     /**
@@ -47,13 +58,20 @@ public class frameCatalogoUASD extends javax.swing.JFrame {
             }
         ));
         tabla.setName(""); // NOI18N
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
         tabla.getAccessibleContext().setAccessibleName("");
 
-        btnMostrarFacultades.setText("jButton1");
+        btnMostrarFacultades.setText("Mostrar Facultades");
         btnMostrarFacultades.setName(""); // NOI18N
+        btnMostrarFacultades.addActionListener(this::btnMostrarFacultadesActionPerformed);
 
-        btnMostrarEscuelas.setText("jButton2");
+        btnMostrarEscuelas.setText("Mostrar Escuelas");
+        btnMostrarEscuelas.addActionListener(this::btnMostrarEscuelasActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,30 +104,53 @@ public class frameCatalogoUASD extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMostrarFacultadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarFacultadesActionPerformed
+        try {
+            // TODO add your handling code here:
+            c.mostrarFacultades(this);
+        } catch (SQLException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_btnMostrarFacultadesActionPerformed
+
+    private void btnMostrarEscuelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarEscuelasActionPerformed
+        try {
+            // TODO add your handling code here:
+            c.mostrarEscuelas(this);
+        } catch (SQLException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_btnMostrarEscuelasActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        // TODO add your handling code here:
+        if(this.tabla.getColumnName(0).equals("Nombre de Escuelas")){
+            try {
+                c.mostrarFacultades(this);
+            } catch (SQLException ex) {
+                System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (ClassNotFoundException ex) {
+                System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }else if(this.tabla.getColumnName(0).equals("Nombre de Facultades")){
+            try {
+                c.mostrarEscuelas(this);
+            } catch (SQLException ex) {
+                System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (ClassNotFoundException ex) {
+                System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    }//GEN-LAST:event_tablaMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new frameCatalogoUASD().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnMostrarEscuelas;

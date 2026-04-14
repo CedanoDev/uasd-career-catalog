@@ -8,7 +8,7 @@ public class Connect {
     private static final String USER = "uasd_user";
     private static final String PASS = "uasd_password";
 
-    private Connection database = null;
+    public Connection database = null;
 
     // Conectar
     public void login() throws ClassNotFoundException {
