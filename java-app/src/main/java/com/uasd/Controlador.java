@@ -7,6 +7,7 @@ import javax.swing.table.*;
 public class Controlador {
     private String query;
     private Connect conexion;
+    private int filaFacultad;
     private DefaultTableModel modelo = new DefaultTableModel();
     
     public Controlador(){
@@ -46,7 +47,8 @@ public class Controlador {
     public void mostrarEscuelas(frameCatalogoUASD frame) throws SQLException, ClassNotFoundException{
         frame.btnMostrarFacultades.setVisible(true);
         frame.btnMostrarEscuelas.setVisible(true);
-        int filaSeleccionada = frame.tabla.getSelectedRow();
+        int filaSeleccionada = (frame.tabla.getColumnName(0).equals("Nombre de Facultades"))?frame.tabla.getSelectedRow():filaFacultad;
+        filaFacultad = filaSeleccionada;
         modificarTabla(frame.tabla, new String[]{"Nombre de Escuelas"});
         query = "Select nombre from escuela where facultad_id = ?";
         conexion.login();
