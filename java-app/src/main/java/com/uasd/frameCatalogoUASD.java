@@ -130,7 +130,7 @@ public class frameCatalogoUASD extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.tabla.getColumnName(0).equals("Nombre de Escuelas")){
             try {
-                c.mostrarFacultades(this);
+                c.mostrarCarreras(this);
             } catch (SQLException ex) {
                 System.getLogger(frameCatalogoUASD.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             } catch (ClassNotFoundException ex) {

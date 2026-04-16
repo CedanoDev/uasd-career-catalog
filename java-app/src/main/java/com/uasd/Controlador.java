@@ -6,11 +6,12 @@ import javax.swing.table.*;
 
 public class Controlador {
     private String query;
-    private Connect conexion;
     private int filaFacultad;
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo;
+    private Connect conexion;
     
     public Controlador(){
+        modelo = new DefaultTableModel();
         conexion = new Connect();
     }
     
@@ -46,18 +47,20 @@ public class Controlador {
     
     public void mostrarEscuelas(frameCatalogoUASD frame) throws SQLException, ClassNotFoundException{
         frame.btnMostrarFacultades.setVisible(true);
-        frame.btnMostrarEscuelas.setVisible(true);
+        frame.btnMostrarEscuelas.setVisible(false);
         int filaSeleccionada = (frame.tabla.getColumnName(0).equals("Nombre de Facultades"))?frame.tabla.getSelectedRow():filaFacultad;
         filaFacultad = filaSeleccionada;
-        modificarTabla(frame.tabla, new String[]{"Nombre de Escuelas"});
-        query = "Select nombre from escuela where facultad_id = ?";
+        modificarTabla(frame.tabla, new String[]{"ID", "Nombre de Escuelas"});
+        frame.tabla.removeColumn(frame.tabla.getColumnModel().getColumn(0));
+        query = "Select id, nombre from escuelas where facultad_id = ?";
         conexion.login();
         PreparedStatement stmt = conexion.database.prepareStatement(query);
-        stmt.setInt(1, filaSeleccionada);
+        stmt.setInt(1, filaSeleccionada + 1);
         ResultSet rs = stmt.executeQuery();
         
         while (rs.next()) {
             modelo.addRow(new Object[]{
+                rs.getInt("id"),
                 rs.getString("nombre")
             });
         }
@@ -69,11 +72,12 @@ public class Controlador {
         frame.btnMostrarFacultades.setVisible(true);
         frame.btnMostrarEscuelas.setVisible(true);
         int filaSeleccionada = frame.tabla.getSelectedRow();
+        int idEscuela = (int)modelo.getValueAt(filaSeleccionada, 0);
         modificarTabla(frame.tabla, new String[]{"Codigo", "Carrera"});
-        query = "Select codigo_plan, nombre from carrera where escuela_id = ?";
+        query = "Select codigo_plan, nombre from carreras where escuela_id = ?";
         conexion.login();
         PreparedStatement stmt = conexion.database.prepareStatement(query);
-        stmt.setInt(1, filaSeleccionada);
+        stmt.setInt(1, idEscuela);
         ResultSet rs = stmt.executeQuery();
         
         while (rs.next()) {

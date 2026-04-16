@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class Main {
     public static void mostrarVentana(JFrame ventana) {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(400, 300);
+        //ventana.setSize(400, 300);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
     }
