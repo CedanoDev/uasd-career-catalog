@@ -62,6 +62,7 @@ uasd-career-catalog/
 
 ✒️ Autores
 Edward Cedano Ogando - 100630954
+Wondel Antonio Alonso - 100604431
 
 ## 📊 Modelo Relacional
 

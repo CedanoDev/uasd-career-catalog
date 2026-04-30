@@ -1,16 +1,16 @@
 package com.uasd;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://db:3306/uasd_catalog";
-        String user = "uasd_user";
-        String pass = "uasd_password";
 
         System.out.println("--- INICIANDO PRUEBA DE CATÁLOGO UASD ---");
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+        try (Connection conn = ConexionDB.getConexion()) {
             System.out.println("✅ Conexión establecida.");
 
             // Consulta para ver las carreras de Informática (ID 11 según tu captura)
@@ -29,6 +29,8 @@ public class Main {
             }
         } catch (SQLException e) {
             System.err.println("❌ Error en la prueba: " + e.getMessage());
+        } finally {
+            ConexionDB.cerrarConexion();
         }
     }
 }

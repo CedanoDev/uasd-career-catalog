@@ -1,4 +1,4 @@
-package com.uasd.db;
+package com.uasd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionDB {
      // Configuración de conexión para Docker
-     private static final String URL = "jdbc:mysql://db:3306/uasd_catalog";
+     private static final String URL = "jdbc:mysql://127.0.0.1:3306/uasd_catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";     
      private static final String USUARIO = "uasd_user";
      private static final String PASSWORD = "uasd_password";
      private static Connection conexion = null;
@@ -76,7 +76,7 @@ public class ConexionDB {
     /**
      * Método main para pruebas unitarias de la conexión
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("=== PRUEBA DE CONEXIÓN A LA BASE DE DATOS ===\n");
         
         try {
@@ -105,5 +105,5 @@ public class ConexionDB {
         
         System.out.println("\n=== FIN DE LA PRUEBA ===");
     }
-}
+}*/
         
