@@ -72,6 +72,7 @@ public class ConexionDB {
             return false;
         }
     }
+}
     
     /**
      * Método main para pruebas unitarias de la conexión
