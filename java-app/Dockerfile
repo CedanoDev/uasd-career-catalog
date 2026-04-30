@@ -1,19 +1,23 @@
-# Usamos una imagen de Maven para compilar y JDK 17 (puedes cambiar la versión)
+# Imagen base: Maven + JDK 17
 FROM maven:3.8.4-openjdk-17-slim
 
-# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiamos el archivo de configuración de dependencias
 COPY pom.xml .
-
-# Descargamos las dependencias (esto ayuda a que los builds sean más rápidos)
 RUN mvn dependency:go-offline
 
-# Copiamos el código fuente
 COPY src ./src
 
-# Compilamos y ejecutamos la aplicación
+# Instalar librerías necesarias para Swing/AWT
+RUN apt-get update && apt-get install -y \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
+    libxi6 \
+    libfreetype6 \
+    fontconfig \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN mvn clean install -DskipTests
+
 CMD ["mvn", "exec:java"]
-# Nota: Si no usan Spring Boot, el comando sería: CMD ["mvn", "exec:java"]

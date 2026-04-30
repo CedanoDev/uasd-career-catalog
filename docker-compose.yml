@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   db:
     image: mysql:8.0
@@ -13,7 +14,6 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - uasd-net
-   
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "uasd_user", "-puasd_password"]
       interval: 5s
@@ -28,6 +28,11 @@ services:
         condition: service_healthy 
     networks:
       - uasd-net
+    environment:
+      - DISPLAY=${DISPLAY}        # Pasa la variable DISPLAY de tu sistema
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix  # Monta el socket X11 para comunicación gráfica
+    command: mvn exec:java        # Ejecuta tu aplicación
 
 networks:
   uasd-net:

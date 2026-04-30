@@ -1,12 +1,23 @@
 package com.uasd;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+=======
+import javax.swing.JFrame;
+>>>>>>> b135bbbe524ee40825c22ccd358546e29454acea
 
 public class Main {
+    public static void mostrarVentana(JFrame ventana) {
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //ventana.setSize(400, 300);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }
     public static void main(String[] args) {
+<<<<<<< HEAD
 
         System.out.println("--- INICIANDO PRUEBA DE CATÁLOGO UASD ---");
 
@@ -32,5 +43,9 @@ public class Main {
         } finally {
             ConexionDB.cerrarConexion();
         }
+=======
+        System.out.println("Hola desde Main");
+        mostrarVentana(new frameCatalogoUASD());
+>>>>>>> b135bbbe524ee40825c22ccd358546e29454acea
     }
 }
